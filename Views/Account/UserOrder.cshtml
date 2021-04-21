@@ -1,0 +1,37 @@
+﻿@model IEnumerable<RentRoom.Models.Build>
+
+@{
+    ViewBag.Title = "Ads";
+}
+
+@foreach (var item in Model)
+{
+    foreach (var u in ViewBag.IsUserAdmin)
+    {
+        if (item.Status == 1)
+        {
+
+            if (u.Admin == 1)
+            {
+                { Html.RenderPartial("~/Views/PartialViews/OrderDetails.cshtml"); }
+            }
+            else
+            {
+                <p><h3>The ad is under moderation!</h3></p>
+            }
+        }
+        else
+        {
+            if (u.Admin == 1 || u.Login == item.User.Login)
+            {
+                { Html.RenderPartial("~/Views/PartialViews/OrderDetails.cshtml"); }
+                <p>@Html.ActionLink("Delete", "DeleteOrder", "Admin", new { Id = item.Id }, new { @class = "btn btn-danger", @role = "button" })</p>
+            }
+            else
+            {
+                { Html.RenderPartial("~/Views/PartialViews/OrderDetails.cshtml"); }
+            }
+        }
+    }
+}
+

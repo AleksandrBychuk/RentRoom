@@ -1,0 +1,79 @@
+﻿@model IEnumerable<RentRoom.Models.Build>
+
+@foreach (var item in Model)
+{
+    <div class="row carousel-holder marginTop1">
+        <div class="col-md-12">
+            <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                    <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                    <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+                </ol>
+                <div class="carousel-inner">
+                    <div class="item active">
+                        @Html.Raw("<img width='1180' height='2000' class='slide-image' src=\"data:image/jpeg;base64," + Convert.ToBase64String(item.Photo) + "\" />")
+                    </div>
+                    <div class="item">
+                        @Html.Raw("<img width='1180' height='2000' class='slide-image' src=\"data:image/jpeg;base64," + Convert.ToBase64String(item.Photo2) + "\" />")
+                    </div>
+                    <div class="item">
+                        @Html.Raw("<img width='1180' height='2000' class='slide-image' src=\"data:image/jpeg;base64," + Convert.ToBase64String(item.Photo3) + "\" />")
+                    </div>
+                </div>
+                <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+                    <span class="glyphicon glyphicon-chevron-left"></span>
+                </a>
+                <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+                    <span class="glyphicon glyphicon-chevron-right"></span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="row">
+            <div class="col-md-12"></div>
+            <h3 style="display:inline">@item.Type</h3>
+            <h4><i>@item.Country, @item.City @item.Address</i></h4>
+            <p><h4>@item.Description</h4></p>
+            <h3><span class="label label-success">@item.Price $</span></h3>
+        </div>
+        <hr />
+        <div class="row">
+            <p class="control-label col-md-2"><strong>Rooms:</strong> @Html.DisplayFor(model => item.Rooms)</p>
+            <p class="control-label col-md-2"><strong>Rooms for rent:</strong> @Html.DisplayFor(model => item.RoomsToRent)</p>
+            <p class="control-label col-md-2"><strong>Floors:</strong> @Html.DisplayFor(model => item.Floors)</p>
+            <p class="control-label col-md-2"><strong>Floor:</strong> @Html.DisplayFor(model => item.FloorRent)</p>
+            <p class="control-label col-md-2"><strong>Furniture:</strong> @Html.DisplayFor(model => item.Furniture)</p>
+            <p class="control-label col-md-2"><strong>Bathroom:</strong> @Html.DisplayFor(model => item.Bathroom)</p>
+            <p class="control-label col-md-2"><strong>Elevator:</strong> @Html.DisplayFor(model => item.Elevator)</p>
+            <p class="control-label col-md-2"><strong>GarbageChute:</strong> @Html.DisplayFor(model => item.GarbageChute)</p>
+            <p class="control-label col-md-2"><strong>Internet:</strong> @Html.DisplayFor(model => item.Internet)</p>
+            <p class="control-label col-md-2"><strong>Kitchen area:</strong> @Html.DisplayFor(model => item.KitchenArea)</p>
+            <p class="control-label col-md-2"><strong>Living area:</strong> @Html.DisplayFor(model => item.LivingArea)</p>
+            <p class="control-label col-md-2"><strong>Total area:</strong> @Html.DisplayFor(model => item.TotalArea)</p>
+            <p class="control-label col-md-2"><strong>Year built:</strong> @Html.DisplayFor(model => item.YearBuilt)</p>
+            <p class="control-label col-md-2"><strong>Repairs:</strong> @Html.DisplayFor(model => item.Repairs)</p>
+            <p class="control-label col-md-2"><strong>Household appliances:</strong> @Html.DisplayFor(model => item.HouseholdAppliances)</p>
+        </div>
+        <div class="row">
+            @if (item.IsNumberShow is true)
+            {
+                if (item.User.PhoneNumber is null)
+                {
+                    <h5><i>E-Mail: @item.User.Email</i></h5>
+                    <h5><i>Phone number not set</i></h5>
+                }
+                else
+                {
+                    <h5><i>E-Mail: @item.User.Email</i></h5>
+                    <h5><i>Phone number: @item.User.PhoneNumber</i></h5>
+                }
+            }
+            else
+            {
+                <h5><i>E-Mail: @item.User.Email</i></h5>
+            }
+        </div>
+    </div>
+}

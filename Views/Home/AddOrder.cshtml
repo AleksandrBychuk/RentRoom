@@ -1,0 +1,202 @@
+﻿@model RentRoom.Models.Build
+
+@using (Html.BeginForm("AddOrder", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <div id="Modal2" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title">Adding an ad</h2>
+                </div>
+                <div class="modal-body">
+                    <div class="form-horizontal">
+                        <p style="color: red">* - required fields</p>
+                        <div class="form-group">
+
+                            <p class="control-label col-md-2"><strong>Type<span style="color:red">*</span></strong> </p>
+                            <div class="col-md-10">
+                                @Html.DropDownListFor(model => model.Type, new SelectList(new List<string>() { "House", "Apartment", "Room" }), new { @class = "form-control", @placeholder = "Type", @required = true })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <p class="control-label col-md-2"><strong>Number of rooms<span style="color:red">*</span></strong> </p>
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Rooms, new { htmlAttributes = new { @class = "form-control", @placeholder = "Number of rooms", @min = 0, @required = true } })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <p class="control-label col-md-2"><strong>Rooms for rent</strong> </p>
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.RoomsToRent, new { htmlAttributes = new { @class = "form-control", @placeholder = "Rooms for rent", @min = 0 } })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <p class="control-label col-md-2"><strong>Floor<span style="color:red">*</span></strong> </p>
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.FloorRent, new { htmlAttributes = new { @class = "form-control", @placeholder = "Floor", @min = 1, @required = true } })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <p class="control-label col-md-2"><strong>Number of floors</strong> </p>
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Floors, new { htmlAttributes = new { @class = "form-control", @placeholder = "Number of floors", @min = 1 } })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <p class="control-label col-md-2"><strong>Total area</strong> </p>
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.TotalArea, new { htmlAttributes = new { @class = "form-control", @placeholder = "Total area", @min = 0 } })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <p class="control-label col-md-2"><strong>Living area</strong> </p>
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.LivingArea, new { htmlAttributes = new { @class = "form-control", @placeholder = "Living area", @min = 0 } })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <p class="control-label col-md-2"><strong>Kitchen area</strong> </p>
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.KitchenArea, new { htmlAttributes = new { @class = "form-control", @placeholder = "Kitchen area", @min = 0 } })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <p class="control-label col-md-2"><strong>Year built</strong> </p>
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.YearBuilt, new { htmlAttributes = new { @class = "form-control", @placeholder = "Year built", @min = 1900, @max = DateTime.Now.Year, @value = DateTime.Now.Year } })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <p class="control-label col-md-2"><strong>Garbage chute</strong> </p>
+                            <div class="col-md-10">
+                                @Html.DropDownListFor(model => model.GarbageChute, new SelectList(new List<string>() { "Not chosen", "Yes", "No" }), new { @class = "form-control", @placeholder = "Garbage chute" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <p class="control-label col-md-2"><strong>Elevator</strong> </p>
+                            <div class="col-md-10">
+                                @Html.DropDownListFor(model => model.Elevator, new SelectList(new List<string>() { "Not chosen", "Yes", "No" }), new { @class = "form-control", @placeholder = "Elevator" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <p class="control-label col-md-2"><strong>Furniture</strong> </p>
+                            <div class="col-md-10">
+                                @Html.DropDownListFor(model => model.Furniture, new SelectList(new List<string>() { "Not chosen", "Yes", "No" }), new { @class = "form-control", @placeholder = "Furniture" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <p class="control-label col-md-2"><strong>Household appliances</strong> </p>
+                            <div class="col-md-10">
+                                @Html.DropDownListFor(model => model.HouseholdAppliances, new SelectList(new List<string>() { "Not chosen", "Yes", "No" }), new { @class = "form-control", @placeholder = "Household appliances" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <p class="control-label col-md-2"><strong>Internet</strong> </p>
+                            <div class="col-md-10">
+                                @Html.DropDownListFor(model => model.Internet, new SelectList(new List<string>() { "Not chosen", "Yes", "No" }), new { @class = "form-control", @placeholder = "Internet" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <p class="control-label col-md-2"><strong>Repairs</strong> </p>
+                            <div class="col-md-10">
+                                @Html.DropDownListFor(model => model.Repairs, new SelectList(new List<string>() { "Good repair", "Satisfactory repair", "Bad repair" }), new { @class = "form-control", @placeholder = "Repairs" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Photo, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                <input type="file" name="uploadImage" hidden>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Photo2, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                <input type="file" name="uploadImage2" hidden>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Photo3, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                <input type="file" name="uploadImage3" hidden>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <p class="control-label col-md-2"><strong>Bathroom</strong> </p>
+                            <div class="col-md-10">
+                                @Html.DropDownListFor(model => model.Bathroom, new SelectList(new List<string>() { "Not chosen", "Combined", "Separate", "No", "too and more"}), new { @class = "form-control", @placeholder = "Bathroom" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <p class="control-label col-md-2"><strong>Country<span style="color:red">*</span></strong> </p>
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Country, new { htmlAttributes = new { @class = "form-control", @placeholder = "Country", @required = true } })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <p class="control-label col-md-2"><strong>City<span style="color:red">*</span></strong> </p>
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control", @placeholder = "City", @required = true } })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <p class="control-label col-md-2"><strong>Address</strong> </p>
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control", @placeholder = "Address" } })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <p class="control-label col-md-2"><strong>Price(DDK)<span style="color:red">*</span></strong> </p>
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control", @placeholder = "Price", @required = true, @min = 0 } })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <p class="control-label col-md-2"><strong>Description<span style="color:red">*</span></strong> </p>
+                            <div class="col-md-10">
+                                @Html.TextAreaFor(model => model.Description, 5, 5, new { @class = "form-control", @placeholder = "Description", @required = true })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <p class="control-label col-md-2"><strong>Indicate the phone?</strong> </p>
+                            <div class="col-md-10">
+                                @Html.CheckBoxFor(model => model.IsNumberShow, new { @type = "checkbox" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Submit" class="btn btn-default" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+}

@@ -1,0 +1,94 @@
+﻿@model IEnumerable<RentRoom.Models.User>
+
+@{
+    ViewBag.Title = "Profile";
+}
+
+
+<div class="row">
+    <div class="col-md-6">
+        @foreach (var item in Model)
+        {
+            if (item.Login == User.Identity.Name)
+            {
+                <h2>Profile,<strong> @Html.DisplayFor(modelItem => item.Login)&ensp;<a href="#" type="button" class="btn btn-default navbar-btn" data-toggle="modal" data-target="#Modal3"><img height="25" width="25" src="https://image.flaticon.com/icons/png/512/17/17146.png" /></a></strong></h2>
+                <h4><strong>E-Mail: </strong>@Html.DisplayFor(modelItem => item.Email)</h4>
+                if (string.IsNullOrEmpty(item.PhoneNumber))
+                {
+                    <h4>Phone number not set!</h4>
+                }
+                else
+                {
+                    <h4><strong>Phone number: </strong>@Html.DisplayFor(modelItem => item.PhoneNumber)</h4>
+                }
+            }
+            else
+            {
+                <h2>Profile,<strong> @Html.DisplayFor(modelItem => item.Login)</strong></h2>
+                <h4><strong>E-Mail: </strong>@Html.DisplayFor(modelItem => item.Email)</h4>
+                if (string.IsNullOrEmpty(item.PhoneNumber))
+                {
+                    <h4>Phone number not set!</h4>
+                }
+                else
+                {
+                    <h4><strong>Phone number: </strong>@Html.DisplayFor(modelItem => item.PhoneNumber)</h4>
+                }
+            }
+        }
+    </div>
+</div>
+<hr />
+<div class="row">
+    <div id="modDialog" class="modal fade">
+        <div id="dialogContent" class="modal-dialog"></div>
+    </div>
+    <div class="col-md-12">
+        @foreach (var item in Model)
+        {
+            if (item.Login == User.Identity.Name)
+            {
+                if (item.Admin == 1)
+                {
+                    <h3 style="display:inline">Your ads</h3>
+                    <div class="btn-group navbar-right" role="group">
+                        <a href="#" type="button" class="btn btn-default" data-toggle="modal" data-target="#Modal2"><strong>Add</strong></a>
+                        @Html.ActionLink("Admin Panel", "Index", "Admin", null, new { @type = "button", @class = "btn btn-default" })
+                    </div>
+                }
+                else
+                {
+                    <h3 style="display:inline">Your ads</h3>
+                    <div class="btn-group navbar-right">
+                        <a href="#" type="button" class="btn btn-default navbar-btn" data-toggle="modal" data-target="#Modal2"><strong>Add</strong></a>
+                    </div>
+                }
+            }
+            else
+            {
+                <h3 style="display:inline">Ads</h3>
+            }
+                <h6>Moderated ads: @item.Builds.Count(u => u.Status == 1)</h6>
+        }
+    </div>
+</div>
+<hr />
+<div class="row">
+    @foreach (var item in ViewBag.DataOrders)
+    {
+        <div class="col-sm-6 col-md-4">
+            <div class="thumbnail">
+                @Html.Raw("<img class='img-responsive' style='min-height:250px; width: 1080px; overflow: hidden; ' src=\"data:image/jpeg;base64," + Convert.ToBase64String(item.Photo) + "\" />")
+                <div class="caption">
+                    <h6>@item.DateAdd</h6>
+                    <h3 style="display:inline">@item.Type</h3>
+                    <h4><i>@item.Country, @item.City @item.Address</i></h4>
+                    <h3><span class="label label-success">@item.Price DDK</span></h3>
+                    <p>@Html.ActionLink("More >>", "UserOrder", "Account", new { Id = item.Id }, new { @class = "btn btn-default" })</p>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+@Html.Action("AddOrder", "Home")
+@Html.Action("Settings", "Account")

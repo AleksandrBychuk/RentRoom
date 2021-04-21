@@ -1,0 +1,34 @@
+﻿@model IEnumerable<RentRoom.Models.Build>
+
+@{
+    ViewBag.Title = "Admin panel";
+}
+
+<h2>Admin panel</h2>
+
+<div class="row">
+    @if (Model.FirstOrDefault() == null)
+    {
+        <div class="col-sm-6 col-md-4">
+            <p>No new ads!</p>
+        </div>
+    }
+    else
+    {
+        foreach (var item in Model)
+        {
+            <div class="col-sm-6 col-md-4">
+                <div class="thumbnail">
+                    @Html.Raw("<img class='img-responsive' style='min-height:250px; width: 1080px; overflow: hidden; ' src=\"data:image/jpeg;base64," + Convert.ToBase64String(item.Photo) + "\" />")
+                    <div class="caption">
+                        <h6>Sender: @Html.ActionLink(item.User.Login, "UserProfile", "Account", new { Id = item.User.Id }, null) @item.DateAdd</h6>
+                        <h3 style="display:inline">@item.Type</h3>
+                        <h4><i>@item.Country, @item.City @item.Address</i></h4>
+                        <h3><span class="label label-success">@item.Price DDK</span></h3>
+                        <p>@Html.ActionLink("Success", "SuccessOrder", "Admin", new { Id = item.Id }, new { @class = "btn btn-success", @role = "button" })@Html.ActionLink("Delete", "DeleteOrder", "Admin", new { Id = item.Id }, new { @class = "btn btn-danger", @role = "button" })@Html.ActionLink("Preview", "UserOrder", "Account", new { Id = item.Id }, new { @class = "btn btn-primary" })
+                    </div>
+                </div>
+            </div>
+        }
+    }
+</div>

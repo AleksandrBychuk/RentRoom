@@ -1,0 +1,61 @@
+﻿@model RentRoom.Models.FilterViewModel
+
+@{
+    ViewBag.Title = "Rental of property";
+
+}
+
+@{Html.RenderPartial("~/Views/PartialViews/ImagesPV.cshtml");}
+<hr />
+<form method="get">
+    <div class="form-inline">
+        <label class="control-label">Type: </label>
+        @Html.DropDownList("type", Model.Types as SelectList, htmlAttributes: new { @class = "form-control" })
+        <label class="control-label">Price: </label>
+        @Html.EditorFor(model => model.MinPrice, new { htmlAttributes = new { @class = "form-control", @name = "minprice", @placeholder = "From" } })
+        @Html.EditorFor(model => model.MaxPrice, new { htmlAttributes = new { @class = "form-control", @name = "maxprice", @placeholder = "To" } })
+        @Html.EditorFor(model => model.Country, new { htmlAttributes = new { @class = "form-control", @name = "country", @placeholder = "Country" } })
+        @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control", @name = "city", @placeholder = "City" } })
+        <input type="submit" value="Filter" class="btn btn-default" />
+        <details>
+            <summary>More filter</summary>
+            <div class="form-horizontal form-group">
+                <ul>
+                    <li>@Html.EditorFor(model => model.Rooms, new { htmlAttributes = new { @class = "form-control", @name = "rooms", @placeholder = "Number of rooms" } })</li>
+                    <li>@Html.EditorFor(model => model.RoomsToRent, new { htmlAttributes = new { @class = "form-control", @name = "roomstorent", @placeholder = "Rooms for rent" } })</li>
+                    <li>@Html.EditorFor(model => model.Floors, new { htmlAttributes = new { @class = "form-control", @name = "floors", @placeholder = "Number of floors" } })</li>
+                    <li>@Html.EditorFor(model => model.FloorRent, new { htmlAttributes = new { @class = "form-control", @name = "floorrent", @placeholder = "Floor" } })</li>
+                    <li>@Html.EditorFor(model => model.TotalArea, new { htmlAttributes = new { @class = "form-control", @name = "totalarea", @placeholder = "Total area" } })</li>
+                    <li>@Html.EditorFor(model => model.LivingArea, new { htmlAttributes = new { @class = "form-control", @name = "livingarea", @placeholder = "Living area" } })</li>
+                    <li>@Html.EditorFor(model => model.KitchenArea, new { htmlAttributes = new { @class = "form-control", @name = "kitchenarea", @placeholder = "Kitchen area" } })</li>
+                    <li>@Html.EditorFor(model => model.YearBuilt, new { htmlAttributes = new { @class = "form-control", @name = "yearbuilt", @placeholder = "Year built" } })</li>
+                    <li><label class="control-label">Bathroom: </label><br />@Html.DropDownList("bathroom", Model.Bathroom as SelectList, htmlAttributes: new { @class = "form-control" })</li>
+                    <li><label class="control-label">Elevator: </label><br />@Html.DropDownList("elevator ", Model.Elevator as SelectList, htmlAttributes: new { @class = "form-control" })</li>
+                    <li><label class="control-label">Furniture: </label><br />@Html.DropDownList("furniture", Model.Furniture as SelectList, htmlAttributes: new { @class = "form-control" })</li>
+                    <li><label class="control-label">Household Appliances: </label><br />@Html.DropDownList("householdappliances", Model.HouseholdAppliances as SelectList, htmlAttributes: new { @class = "form-control" })</li>
+                    <li><label class="control-label">Internet: </label><br />@Html.DropDownList("internet", Model.Internet as SelectList, htmlAttributes: new { @class = "form-control" })</li>
+                    <li><label class="control-label">Garbage Chute: </label><br />@Html.DropDownList("garbagechute", Model.GarbageChute as SelectList, htmlAttributes: new { @class = "form-control" })</li>
+                    <li><label class="control-label">Repairs: </label><br />@Html.DropDownList("repairs", Model.Repairs as SelectList, htmlAttributes: new { @class = "form-control" })</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+</form>
+<hr />
+<div class="row">
+    @foreach (var item in Model.Builds)
+    {
+        <div class="col-sm-6 col-md-4">
+            <div class="thumbnail">
+                @Html.Raw("<img class='img-responsive' style='min-height:250px; width: 1080px; overflow: hidden; ' src=\"data:image/jpeg;base64," + Convert.ToBase64String(item.Photo) + "\" />")
+                <div class="caption">
+                    <h6>Sender: @Html.ActionLink(item.User.Login, "UserProfile", "Account", new { Id = item.User.Id }, null) @item.DateAdd</h6>
+                    <h3 style="display:inline">@item.Type</h3>
+                    <h4><i>@item.Country, @item.City @item.Address</i></h4>
+                    <h3><span class="label label-success">@item.Price DDK</span></h3>
+                    <p>@Html.ActionLink("More >>", "UserOrder", "Account", new { Id = item.Id }, new { @class = "btn btn-default" })</p>
+                </div>
+            </div>
+        </div>
+    }
+</div>
